@@ -1,0 +1,78 @@
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(21, 124, 235);
+    color: white;
+    padding: 12px 24px;
+    font-size: 18px;
+}
+
+.navbar-title {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+/* Main Container */
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* Summary Box */
+.summary-box {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.summary-box p {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.profit {
+    color: green;
+}
+
+.loss {
+    color: red;
+}
+
+/* Chart Section */
+.chart-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .chart-section {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.chart-container {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.chart-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
