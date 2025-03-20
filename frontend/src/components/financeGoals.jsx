@@ -90,94 +90,123 @@ export default function FinanceGoals({ income, totalExpenses }) {
   };
 
   return (
-    <div className="p-6 max-w-3xl mx-auto space-y-6">
-      <h1 className="text-2xl font-bold text-center">
-        🎯 Financial Goals Tracker
-      </h1>
-      <span> <BackButton/> </span>
+    <div className="p-6 max-w-3xl mx-auto space-y-6 bg-gradient-to-b from-gray-50 to-white rounded-xl shadow-lg">
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold text-green-700 flex items-center">
+          <span className="text-4xl mr-2">🎯</span> Financial Goals Tracker
+        </h1>
+        <BackButton />
+      </div>
 
       {/* Input Fields for Adding Goals */}
-      <div className="p-4 bg-white border rounded-lg shadow space-y-4">
-        <h2 className="text-xl font-semibold">Set a New Goal</h2>
-        <input
-          type="text"
-          placeholder="Goal Name (e.g., Buy a Car)"
-          value={goalName}
-          onChange={(e) => setGoalName(e.target.value)}
-          className="w-full p-2 border rounded"
-        />
-        <input
-          type="number"
-          placeholder="Target Amount ($)"
-          value={goalAmount}
-          onChange={(e) => setGoalAmount(e.target.value)}
-          className="w-full p-2 border rounded"
-        />
-        <input
-          type="date"
-          value={goalDeadline}
-          onChange={(e) => setGoalDeadline(e.target.value)}
-          className="w-full p-2 border rounded"
-        />
+      <div className="p-6 bg-white border border-green-100 rounded-xl shadow-lg space-y-5 transform transition-all duration-300 hover:shadow-xl">
+        <h2 className="text-xl font-semibold text-green-700 border-b border-green-100 pb-3">Set a New Goal</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">Goal Name</label>
+            <input
+              type="text"
+              placeholder="Goal Name (e.g., Buy a Car)"
+              value={goalName}
+              onChange={(e) => setGoalName(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">Target Amount</label>
+            <input
+              type="number"
+              placeholder="Target Amount ($)"
+              value={goalAmount}
+              onChange={(e) => setGoalAmount(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
+            />
+          </div>
+          <div className="space-y-2 md:col-span-2">
+            <label className="text-sm font-medium text-gray-700">Target Date</label>
+            <input
+              type="date"
+              value={goalDeadline}
+              onChange={(e) => setGoalDeadline(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
+            />
+          </div>
+        </div>
         <button
           onClick={addGoal}
-          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition"
+          className="w-full md:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center"
         >
-          ➕ Add Goal
+          <span className="mr-2">➕</span> Add Goal
         </button>
       </div>
 
       {/* PDF Download Button */}
       <button
         onClick={downloadPDF}
-        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition"
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center"
       >
-        📄 Download Goals Report
+        <span className="mr-2">📄</span> Download Goals Report
       </button>
 
       {/* Goals Summary */}
       <div
         id="goals-report"
-        className="bg-white border rounded-lg shadow p-6 space-y-6 mt-4"
+        className="bg-white border border-gray-200 rounded-xl shadow-lg p-6 space-y-6"
       >
-        <h2 className="text-xl font-semibold">Your Financial Goals</h2>
+        <h2 className="text-2xl font-semibold text-gray-800 border-b border-gray-200 pb-3">Your Financial Goals</h2>
 
         {goals.length === 0 ? (
-          <p className="text-gray-500">You have not set any goals yet.</p>
+          <div className="flex flex-col items-center justify-center py-10 text-gray-500">
+            <div className="w-16 h-16 mb-4 text-gray-400 flex items-center justify-center text-4xl">🎯</div>
+            <p className="text-lg">You have not set any goals yet.</p>
+            <p className="text-sm mt-2">Start by adding your first goal above.</p>
+          </div>
         ) : (
-          goals.map((goal, index) => (
-            <div key={index} className="p-4 border rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold">{goal.name}</h3>
-              <p>
-                🎯 Target: <span className="font-bold">${goal.amount}</span>
-              </p>
-              <p>
-                📅 Deadline: <span className="font-bold">{goal.deadline}</span>
-              </p>
-              <p>
-                💰 Current Savings:{" "}
-                <span className="font-bold">${savings}</span>
-              </p>
-              <div className="w-full bg-gray-200 rounded-full h-4 mt-2">
-                <div
-                  className={`h-4 rounded-full transition-all ${
-                    goal.progress >= 100 ? "bg-green-500" : "bg-blue-500"
-                  }`}
-                  style={{ width: `${goal.progress}%` }}
-                ></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {goals.map((goal, index) => (
+              <div 
+                key={index} 
+                className="p-5 border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                style={{ borderLeftWidth: '4px', borderLeftColor: goal.progress >= 100 ? '#10b981' : '#3b82f6' }}
+              >
+                <h3 className="text-lg font-semibold text-gray-800">{goal.name}</h3>
+                <div className="mt-4 space-y-3">
+                  <p className="flex items-center text-gray-700">
+                    <span className="mr-2">🎯</span> Target:
+                    <span className="font-bold ml-2">${goal.amount.toLocaleString()}</span>
+                  </p>
+                  <p className="flex items-center text-gray-700">
+                    <span className="mr-2">📅</span> Deadline:
+                    <span className="font-bold ml-2">{new Date(goal.deadline).toLocaleDateString()}</span>
+                  </p>
+                  <p className="flex items-center text-gray-700">
+                    <span className="mr-2">💰</span> Current Savings:
+                    <span className="font-bold ml-2">${savings.toLocaleString()}</span>
+                  </p>
+                </div>
+                <div className="mt-4">
+                  <div className="w-full bg-gray-200 rounded-full h-4">
+                    <div
+                      className={`h-4 rounded-full transition-all ${
+                        goal.progress >= 100 ? "bg-green-500" : "bg-blue-500"
+                      }`}
+                      style={{ width: `${goal.progress}%` }}
+                    ></div>
+                  </div>
+                  <div className="flex justify-between text-sm mt-2">
+                    <span className="text-gray-600">Progress:</span>
+                    <span
+                      className={`font-bold ${
+                        goal.progress >= 100 ? "text-green-600" : "text-blue-600"
+                      }`}
+                    >
+                      {goal.progress.toFixed(1)}%
+                    </span>
+                  </div>
+                </div>
               </div>
-              <p className="text-sm text-gray-600 mt-2">
-                Progress:{" "}
-                <span
-                  className={`font-bold ${
-                    goal.progress >= 100 ? "text-green-600" : "text-blue-600"
-                  }`}
-                >
-                  {goal.progress.toFixed(2)}%
-                </span>
-              </p>
-            </div>
-          ))
+            ))}
+          </div>
         )}
       </div>
     </div>

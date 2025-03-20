@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartLine,
   faBars,
-  faHome,
+  faHome, 
   faDollarSign,
   faBullseye,
   faSignOutAlt,
@@ -153,10 +153,11 @@ const Dashboard = () => {
       {/* Main Content */}
       <header className="header">
           <span className="welcome-text">
-            Salam, Welcome back <strong>{userID}</strong>
+            <div>Salam, Welcome back <strong>{userID}</strong></div>
           </span>
         </header>
-      <div className={`main-content ${isExpanded ? "shifted" : ""}`}>
+
+      <div className={`main-content main-dashboard ${isExpanded ? "shifted" : ""}`}>
         
         <div className="cards-container">
           <div

@@ -1,243 +1,323 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: "Inter", sans-serif;
-    background: #f4f4f4;
-  }
-  
-  .dashboard-container {
-    width: 100vw;  /* Full viewport width */
-    height: 100vh; /* Full viewport height */
-    overflow: hidden; /* Prevent scrolling */
-    display: flex; /* Optional: Use flex for better layout control */
-    flex-direction: column; /* Arrange children in a column */
-  }
-  
-  
-  /* ======== Sidebar ======== */
-  .side-bar {
-    width: 60px;
-    background: #ffffff;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: width 0.3s ease-in-out;
-    overflow: hidden;
-    position: fixed;
-    height: 100vh;
-    left: 0;
-    top: 0;
-  }
-  
-  /* Expand Sidebar */
-  .side-bar.expanded {
-    width: 200px;
-    align-items: flex-start;
-  }
-  
-  /* Toggle Button */
-  .toggle-btn {
-    font-size: 20px;
-    padding: 15px;
-    cursor: pointer;
-    color: #333;
-    transition: 0.3s;
-  }
-  
-  
-  
-  /* ======== Sidebar Menu ======== */
-  .menu {
-    list-style: none;
-    padding: 0;
-    width: 100%;
-  }
-  
-  .menu-item {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    font-size: 16px;
-    color: #333;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
-    position: relative;
-  }
-  
-  .menu-item:hover {
-    background: #f1f1f1;
-  }
-  
-  /* Icons */
-  .icon {
-    font-size: 20px;
-    margin-right: 10px;
-  }
-  
-  /* Hide text in collapsed mode */ 
-  .side-bar:not(.expanded) .menu-item span {
-    display: none;
-  }
-  
-  /* Show tooltip on hover */
-  .side-bar:not(.expanded) .menu-item:hover::after {
-    content: attr(title);
-    position: absolute;
-    left: 70px;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    white-space: nowrap;
-    font-size: 14px;
-  }
-  
-  /* Logout Button */
-  .logout {
-    margin-top: auto;
-    color: red;
-  }
-  
-  .logout:hover {
-    background: rgba(255, 0, 0, 0.1);
-  }
-  
-  /* ======== Main Content ======== */
-  .main-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    transition: margin-left 0.3s ease-in-out;
-    margin-left: 35px;
-    margin-bottom: 10px;
-    padding-top: 0px;
-    width: calc(100% - 60px);
-  }
-  
-  /* Shift content when sidebar expands */
-  .main-content.shifted {
-    margin-left: 200px;
-    width: calc(100% - 200px);
-  }
-  
-  /* Header */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 0;
-    padding: 15px;
-    background: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Welcome Text */
-  .welcome-text {
-    font-size: 18px;
-    padding-left: 50px;
-  }
-  
-  /* Search Box */
-  .search-box {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    width: 250px;
-    background: rgba(207, 207, 207, 0.73)
-  }
-  
-  .cards-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Ensures all cards fit */
-    grid-template-rows: auto auto;
-    gap: 20px; /* Slightly reduce gap for better fit */
-    margin: 20px auto; /* Centers content properly */
-    width: 95vw; /* Ensures it fits within screen width */
-    max-width: 1200px; /* Prevents excessive stretching */
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  background: #f4f4f4;
+  overflow-x: hidden;
 }
 
+.dashboard-container {
+  min-width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ======== Sidebar ======== */
+.side-bar {
+  width: 60px;
+  background: #ffffff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: width 0.3s ease-in-out;
+  overflow: hidden;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 100;
+}
+
+/* Expand Sidebar */
+.side-bar.expanded {
+  width: 200px;
+  align-items: flex-start;
+}
+
+/* Toggle Button */
+.toggle-btn {
+  font-size: 20px;
+  padding: 15px;
+  cursor: pointer;
+  color: #333;
+  transition: 0.3s;
+}
+
+/* ======== Sidebar Menu ======== */
+.menu {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  margin-top: 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  position: relative;
+}
+
+.menu-item:hover {
+  background: #f1f1f1;
+}
+
+/* Icons */
+.icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+/* Hide text in collapsed mode */
+.side-bar:not(.expanded) .menu-item span {
+  display: none;
+}
+
+/* Show tooltip on hover */
+.side-bar:not(.expanded) .menu-item:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: 70px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  font-size: 14px;
+  z-index: 101;
+}
+
+/* Logout Button */
+.logout {
+  margin-top: auto;
+  color: red;
+}
+
+.logout:hover {
+  background: rgba(255, 0, 0, 0.1);
+}
+
+/* ======== Main Content ======== */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s ease-in-out;
+  margin-left: 60px;
+  padding: 0;
+  width: calc(100% - 60px);
+}
+
+/* Shift content when sidebar expands */
+.main-content.shifted {
+  margin-left: 200px;
+  width: calc(100% - 200px);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0;
+  padding: 15px;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Welcome Text */
+.welcome-text {
+  width: 100%;
+  font-size: 18px;
+  text-align: center;
+}
+
+/* Search Box */
+.search-box {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: 250px;
+  background: rgba(207, 207, 207, 0.73);
+}
+
+/* Cards Container */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 25px;
+  padding: 40px;
+  width: 100%;
+  box-sizing: border-box;
+}
 
 /* General Card Styling */
 .card {
-    padding: 20px;
-    border-radius: 10px;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  height: 100%;
 }
 
-/* Budget Card */
+.card:hover {
+  transform: scale(1.02);
+}
+
+/* Card Specific Styling */
 .balance-card {
-    background: linear-gradient(135deg, #0066ff, rgb(74, 127, 212));
-    width: 370px;
-    height: 200px;
-    margin-top: 22px;
-    transition: transform 0.2s ease-in-out;
+  background: linear-gradient(135deg, #0066ff, rgb(74, 127, 212));
+  grid-column: span 4;
+  min-height: 200px;
 }
 
-/* Income & Expense Cards */
-.income-card{
-    background: white;
-    color: black;
-    width: 270px;
-    height: 200px;
-    margin-top: 22px;
-    transition: transform 0.2s ease-in-out;
-}
+.income-card,
 .expenses-card {
-    background: white;
-    color: black;
-    width: 270px;
-    height: 200px;
-    margin-left: -45px;
-    margin-top: 22px;
-    transition: transform 0.2s ease-in-out;
+  background: white;
+  color: black;
+  grid-column: span 4;
+  min-height: 200px;
 }
 
-/* Investment Card */
 .invest-card {
-    background: white;
-    color: black;
-    height: 500px;
-    width: 270px;
-    margin-top: -10px;  
-    transition: transform 0.2s ease-in-out;
+  background: white;
+  color: black;
+  grid-column: span 4;
+  grid-row: span 2;
+  min-height: 500px;
+  overflow-y: auto;
 }
 
-/* Savings Card (Placed below Expenses) */
+.stats-card {
+  background: white;
+  color: black;
+  grid-column: span 8;
+  min-height: 300px;
+  overflow: hidden;
+}
+
 .savings-card {
-    background: white;
-    color: black;
-    margin-top: -319px;
-    margin-left: -43px;
-
-    width: 270px;
-    height: 283px;
-    grid-column: 3; /* Align under expenses */
-    grid-row: 2; /* Places it in the second row */
-    transition: transform 0.2s ease-in-out;
+  background: white;
+  color: black;
+  grid-column: span 4;
+  min-height: 280px;
 }
 
+/* Card Headers */
+.card h2,
+.card h3 {
+  margin-top: 0;
+}
+
+.card-header {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.card-title {
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Card Footer Inline */
 .card-footer-inline {
-  overflow-x: auto; /* Allows horizontal scrolling if needed */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  overflow-x: auto;
+  padding: 10px 0;
+}
+
+/* Status Badges */
+.status {
+  padding: 4px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.positive {
+  background: #d4f8d4;
+  color: green;
+}
+
+.negative {
+  background: #f8d4d4;
+  color: red;
+}
+
+/* Investment Table */
+.invest-list-wrapper {
+  max-height: 400px;
+  overflow-y: auto;
   padding: 10px;
 }
 
+.investment-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  table-layout: fixed;
+}
+
+.investment-table th,
+.investment-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+.investment-table th {
+  background: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.investment-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.no-investments {
+  text-align: center;
+  color: #777;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+/* Goal Table */
 .goal-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 }
 
-.goal-table th, .goal-table td {
+.goal-table th,
+.goal-table td {
   border: 1px solid #ddd;
   padding: 10px;
   text-align: left;
-  white-space: nowrap; /* Prevents text wrapping */
+  white-space: nowrap;
 }
 
 .goal-table th {
@@ -250,195 +330,157 @@ body {
   background-color: #fff;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  .goal-table th, .goal-table td {
-      padding: 8px;
-      font-size: 14px;
-  }
-}
-
-
-.invest-card {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin: 20px 0;
-  transition: transform 0.2s ease-in-out;
-  overflow: hidden;
-  justify-content: flex-start;
-}
-.invest-card::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
-}
-.invest-card:hover {
-  transform: scale(1.02);
-}
-.card-header {
-  font-size: 22px;
-  font-weight: bold;
-  color: #333;
-  text-align: center;
-  margin-bottom: 15px;
-}
-.invest-list-wrapper {
-  max-height: 400px;
-  overflow-y: auto;
-  padding: 10px;
-}
-.investment-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-  table-layout: fixed;
-}
-.investment-table th, .investment-table td {
-  padding: 12px;
-  border: 1px solid #ddd;
-  text-align: left;
-  word-wrap: break-word;
-}
-.investment-table th {
-  background: #007bff;
-  color: white;
-  font-weight: bold;
-}
-.investment-table tr:nth-child(even) {
-  background: #f9f9f9;
-}
-.no-investments {
-  text-align: center;
-  color: #777;
-  font-size: 16px;
-  margin-top: 10px;
-}
-
-.stats-card {
-    background: white;
-    color: black;
-    margin-top: -319px;
-    width: 663px; /* Increase width slightly */
-    height: 300px;
-    grid-column: span 2;
-    cursor: pointer;
-    overflow: hidden !important; /* Expands but doesn't push other cards */
-}
-
+/* Hide scrollbars but maintain functionality */
+.invest-card::-webkit-scrollbar,
 .stats-card::-webkit-scrollbar {
   width: 0px;
   height: 0px;
-  display: none; /* Chrome, Safari */
+  display: none;
 }
-
-/* Card Footer Inline */
-.card-footer-inline {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-}
-
-/* Status Badges */
-.status {
-    padding: 4px 8px;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.positive {
-    background: #d4f8d4;
-    color: green;
-}
-
-.negative {
-    background: #f8d4d4;
-    color: red;
-}
-
 
 /* ======== Responsive Design ======== */
-@media screen and (max-width: 1200px) {
-    .cards-container {
-        grid-template-columns: repeat(2, 1fr); /* Two cards per row */
-    }
+@media screen and (max-width: 1400px) {
+  .cards-container {
+    grid-template-columns: repeat(12, 1fr);
+  }
 
-    .balance-card {
-        width: 100%; /* Make full-width on smaller screens */
-    }
+  .balance-card {
+    grid-column: span 6;
+  }
 
-    .income-card,
-    .expenses-card,
-    .invest-card,
-    .savings-card,
-    .stats-card {
-        width: 100%; /* Adjust width for better spacing */
-    }
+  .income-card,
+  .expenses-card {
+    grid-column: span 3;
+  }
+
+  .invest-card {
+    grid-column: span 6;
+  }
+
+  .stats-card {
+    grid-column: span 6;
+  }
+
+  .savings-card {
+    grid-column: span 6;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .cards-container {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .balance-card {
+    grid-column: span 6;
+  }
+
+  .income-card,
+  .expenses-card {
+    grid-column: span 3;
+  }
+
+  .invest-card {
+    grid-column: span 3;
+  }
+
+  .stats-card {
+    grid-column: span 3;
+  }
+
+  .savings-card {
+    grid-column: span 3;
+  }
 }
 
 @media screen and (max-width: 768px) {
-    .cards-container {
-        grid-template-columns: 1fr; /* One card per row */
-    }
+  .cards-container {
+    grid-template-columns: repeat(6, 1fr);
+  }
 
-    .side-bar {
-        width: 60px;
-        position: absolute;
-        height: 100%;
-    }
+  .balance-card,
+  .income-card,
+  .expenses-card,
+  .invest-card,
+  .stats-card,
+  .savings-card {
+    grid-column: span 6;
+  }
 
-    .side-bar.expanded {
-        width: 200px;
-    }
+  .side-bar {
+    width: 60px;
+    z-index: 1000;
+  }
 
-    .main-content {
-        margin-left: 60px;
-        width: calc(100% - 60px);
-    }
+  .side-bar.expanded {
+    width: 200px;
+  }
 
-    .main-content.shifted {
-        margin-left: 200px;
-        width: calc(100% - 200px);
-    }
+  .main-content {
+    margin-left: 60px;
+    width: calc(100% - 60px);
+  }
 
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+  .main-content.shifted {
+    margin-left: 60px; /* Keep content visible on mobile when sidebar expands */
+    width: calc(100% - 60px);
+  }
 
-    .search-box {
-        width: 100%;
-        margin-top: 10px;
-    }
+  .side-bar.expanded {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .search-box {
+    width: 100%;
+    margin-top: 10px;
+    box-sizing: border-box;
+  }
 }
 
 @media screen and (max-width: 480px) {
-    .cards-container {
-        width: 100%;
-        grid-template-columns: 1fr; /* Stack cards in a single column */
-    }
+  .cards-container {
+    padding: 10px;
+    gap: 15px;
+  }
 
-    .balance-card,
-    .income-card,
-    .expenses-card,
-    .invest-card,
-    .savings-card,
-    .stats-card {
-        width: 100%;
-        height: auto;
-    }
+  .card {
+    padding: 15px;
+  }
 
-    .toggle-btn {
-        font-size: 18px;
-        padding: 10px;
-    }
+  .toggle-btn {
+    font-size: 18px;
+    padding: 10px;
+  }
 
-    .menu-item {
-        padding: 10px;
-        font-size: 14px;
-    }
+  .menu-item {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .welcome-text {
+    font-size: 16px;
+  }
+
+  .card h2 {
+    font-size: 1.5rem;
+  }
+
+  .card h3 {
+    font-size: 1.2rem;
+  }
+
+  .investment-table th,
+  .investment-table td,
+  .goal-table th,
+  .goal-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
 }
+
