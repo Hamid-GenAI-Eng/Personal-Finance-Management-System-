@@ -77,7 +77,7 @@ const AdminPanel = () => {
             <ul>
               {filteredUsers.map((user) => (
                 <li key={user._id} className="clickable-user-item">
-                  <div className="user-info" onClick={() => handleUserClick(user._id)}>
+                  <div className="user-info">
                     <p><strong>Name:</strong> {user.fullname}</p>
                     <p><strong>Email:</strong> {user.email}</p>
                   </div>
