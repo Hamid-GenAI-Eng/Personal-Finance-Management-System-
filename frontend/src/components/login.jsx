@@ -81,7 +81,8 @@ const Login = ({ onLogin }) => {
             <label>
               <input type="checkbox" /> Keep me signed in
             </label>
-            <a href="#">Forgot Password?</a>
+           
+            <a href="/">Don't have an account</a>
           </div>
 
           <button type="submit">LOGIN</button> {/* ✅ Fixed button text */}

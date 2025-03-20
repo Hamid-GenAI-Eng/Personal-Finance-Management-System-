@@ -21,17 +21,21 @@ router.put("/users/:id", async (req, res) => {
     res.json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
-  }
+  } 
 });
 
 // Delete user
-router.delete("/users/:id", adminAuth, async (req, res) => {
+router.delete("/users/:email", async (req, res) => {
   try {
-    await User.findByIdAndDelete(req.params.id);
+    const deletedUser = await User.findOneAndDelete({ email: req.params.email });
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
     res.json({ message: "User deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 module.exports = router;

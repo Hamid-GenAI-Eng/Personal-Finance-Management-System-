@@ -58,7 +58,7 @@ export default function ExpenseManager() {
 
   const handleSubmit = async () => {
     if (!name.trim() || !amount.trim()) return;
-
+  
     const user = localStorage.getItem("userEmail");
     const userID = user.split("@")[0];
     const expenseData = {
@@ -67,7 +67,7 @@ export default function ExpenseManager() {
       amount: parseFloat(amount),
       reason: name,
     };
-
+  
     try {
       const response = await fetch("http://localhost:5001/api/expense", {
         method: "POST",
@@ -77,18 +77,25 @@ export default function ExpenseManager() {
         body: JSON.stringify(expenseData),
       });
       console.log("Raw response:", response);
-
+  
       const text = await response.text();
       console.log("Response body:", text);
-
-      const _history = JSON.parse(localStorage.getItem("userHistory"));
-
+  
+      const _history = JSON.parse(localStorage.getItem("userHistory")) || { expenses: [] };
+  
       const data = JSON.parse(text);
       if (response.ok) {
-        setHistory((prev) => [expenseData, ...prev]); // Update history state
-        const updatedexpenses = [expenseData, ...ExpensesDataFromLocalStorage];
-        _history.expenses = updatedexpenses;
+        const updatedExpenses = [expenseData, ...ExpensesDataFromLocalStorage];
+  
+        // Update history state
+        setHistory((prev) => [expenseData, ...prev]);
+  
+        // Update local storage
+        _history.expenses = updatedExpenses;
         localStorage.setItem("userHistory", JSON.stringify(_history));
+  
+        // **Update ExpensesDataFromLocalStorage state**
+        setExpensesDataFromLocalStorage(updatedExpenses);
       } else {
         alert(data.message || "Failed to add budget");
       }
@@ -96,11 +103,11 @@ export default function ExpenseManager() {
       console.error("Error:", error);
       alert("An error occurred while adding expense");
     }
-
+  
     setName("");
     setAmount("");
   };
-
+  
   const handleEdit = (expense) => {
     setName(expense.name);
     setAmount(expense.amount);

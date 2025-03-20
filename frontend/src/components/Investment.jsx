@@ -156,7 +156,7 @@ export default function InvestmentTracker() {
               <p>📈 Returns: <span className="font-bold">{inv.returns}%</span></p>
               <p>📅 Date: <span className="font-bold">{inv.date}</span></p>
               <p className={`text-sm font-bold ${inv.returns >= 0 ? "text-green-600" : "text-red-600"}`}>
-                {inv.returns >= 0 ? "Profit Expected" : "Potential Loss"}
+              {inv.returns >= 0 ? "Profit Expected" : "Potential Loss"}
               </p>
             </div>
           ))

@@ -75,7 +75,7 @@ body {
     margin-right: 10px;
   }
   
-  /* Hide text in collapsed mode */
+  /* Hide text in collapsed mode */ 
   .side-bar:not(.expanded) .menu-item span {
     display: none;
   }
@@ -167,6 +167,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 /* Budget Card */
@@ -320,6 +321,7 @@ body {
     width: 663px; /* Increase width slightly */
     height: 300px;
     grid-column: span 2;
+    cursor: pointer;
     overflow: hidden !important; /* Expands but doesn't push other cards */
 }
 

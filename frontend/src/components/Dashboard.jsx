@@ -39,15 +39,16 @@ const Dashboard = () => {
   const userHistory = JSON.parse(localStorage.getItem("userHistory")) || {};
   const _user = JSON.parse(localStorage.getItem("user")) || {};
   const isAdmin = _user.permission;
-  console.log("esdtfgyhbjncfvgbh", isAdmin);
   const formattedBudgetData = userHistory.budget.map((item, index) => ({
     name: index,
     amount: Number(item.amount),
   }));
 
   useEffect(() => {
+    if (!user) return;
+  
     const userHistory = JSON.parse(localStorage.getItem("userHistory")) || {};
-
+  
     const totalBudget = userHistory.budget
       ? userHistory.budget.reduce((acc, item) => acc + Number(item.amount), 0)
       : 0;
@@ -56,39 +57,33 @@ const Dashboard = () => {
       : 0;
     const investments = userHistory.investments || [];
     const goalList = userHistory.goals || [];
-
-    const budgetHistory = userHistory.budget;
-    const expenseHistory = userHistory.expenses;
-
+  
+    const budgetHistory = userHistory.budget || [];
+    const expenseHistory = userHistory.expenses || [];
+  
     if (budgetHistory.length > 1) {
-      const prevBudget =
-        Number(budgetHistory[budgetHistory.length - 2]?.amount) || 0;
-      const currentBudget =
-        Number(budgetHistory[budgetHistory.length - 1]?.amount) || 0;
-      const budgetDiff =
-        ((currentBudget - prevBudget) / (prevBudget || 1)) * 100;
+      const prevBudget = Number(budgetHistory[budgetHistory.length - 2]?.amount) || 0;
+      const currentBudget = Number(budgetHistory[budgetHistory.length - 1]?.amount) || 0;
+      const budgetDiff = ((currentBudget - prevBudget) / (prevBudget || 1)) * 100;
       setBudgetChange(budgetDiff);
     }
-
+  
     if (expenseHistory.length > 1) {
-      const prevExpense =
-        Number(expenseHistory[expenseHistory.length - 2]?.amount) || 0;
-      const currentExpense =
-        Number(expenseHistory[expenseHistory.length - 1]?.amount) || 0;
-      const expenseDiff =
-        ((currentExpense - prevExpense) / (prevExpense || 1)) * 100;
+      const prevExpense = Number(expenseHistory[expenseHistory.length - 2]?.amount) || 0;
+      const currentExpense = Number(expenseHistory[expenseHistory.length - 1]?.amount) || 0;
+      const expenseDiff = ((currentExpense - prevExpense) / (prevExpense || 1)) * 100;
       setExpenseChange(expenseDiff);
     }
-
+  
     setBudget(totalBudget);
     setExpenses(totalExpenses);
     setInvestments(investments);
     setGoals(goalList);
-  }, []);
-  const toggleSidebar = () => {
+  }, [user]); // Adding `user` as a dependency
+    const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
   };
-
+  const _isAdmin = false;
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");
     navigate("/login");
@@ -139,7 +134,7 @@ const Dashboard = () => {
           <li
             className="menu-item"
             title="Statistics"
-            onClick={() => navigate("/investmentTracker")}
+            onClick={() => navigate("/investment")}
           >
             <FontAwesomeIcon icon={faChartLine} className="icon" />
             {isExpanded && <span>Statistics</span>}

@@ -2,7 +2,7 @@
 const User = require("../models/User");
 
 const adminAuth = async (req, res, next) => { 
-  try {
+  try { 
     const userdata = localStorage.getItem("user")
     const user = await User.findById(decoded.id);
 

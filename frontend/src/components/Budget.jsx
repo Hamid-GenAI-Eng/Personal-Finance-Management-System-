@@ -58,28 +58,24 @@ export default function BudgetManager() {
     }
   }, []);
   const _history = JSON.parse(localStorage.getItem("userHistory"));
-  console.log("User History: ", _history);
-  console.log("Budget Data: ", _history.budget);
 
   const handleSubmit = async () => {
     if (!name.trim() || !amount.trim()) return;
-
+  
     const user = localStorage.getItem("userEmail");
-    console.log(user);
-
     if (!user) {
       alert("User is not logged in");
       return;
     }
     const userID = user.split("@")[0];
-
+  
     const budgetData = {
       user_id: userID,
       date: new Date().toISOString(),
       amount: parseFloat(amount),
       source: name,
     };
-
+  
     try {
       const response = await fetch("http://localhost:5001/api/budget", {
         method: "POST",
@@ -88,15 +84,17 @@ export default function BudgetManager() {
         },
         body: JSON.stringify(budgetData),
       });
-
+  
       const text = await response.text();
-
       const data = JSON.parse(text);
+      
       if (response.ok) {
-        setHistory((prev) => [budgetData, ...prev]); // Update history state
-
-        const updatedbudget = [budgetData, ...budgetDataFromLocalStorage];
-        _history.budget = updatedbudget;
+        // Update history and budget data state immediately
+        setHistory((prev) => [budgetData, ...prev]);
+  
+        const updatedBudget = [budgetData, ...budgetDataFromLocalStorage];
+        setBudgetDataFromLocalStorage(updatedBudget); // Ensures re-render
+        _history.budget = updatedBudget;
         localStorage.setItem("userHistory", JSON.stringify(_history));
       } else {
         alert(data.message || "Failed to add budget");
@@ -105,11 +103,11 @@ export default function BudgetManager() {
       console.error("Error:", error);
       alert("An error occurred while adding budget");
     }
-
-    setName("");
+  
+    setName(""); 
     setAmount("");
   };
-
+  
   const handleEdit = (budget) => {
     setName(budget.name);
     setAmount(budget.amount);
