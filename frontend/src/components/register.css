@@ -73,7 +73,7 @@
   /* Left Side (Blue) */
   .signup-left {
     flex: 1;
-    background: url("D:\REAL_REACT_PROJECTS\Chat_Application\react-app\public\bg-login.jpg") no-repeat center center;
+    background-color: blue;
     background-size: cover;
     color: white;
     display: flex;
