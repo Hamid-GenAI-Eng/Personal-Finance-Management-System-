@@ -39,10 +39,10 @@ const Dashboard = () => {
   const userHistory = JSON.parse(localStorage.getItem("userHistory")) || {};
   const _user = JSON.parse(localStorage.getItem("user")) || {};
   const isAdmin = _user.permission;
-  const formattedBudgetData = userHistory.budget.map((item, index) => ({
-    name: index,
-    amount: Number(item.amount),
-  }));
+  const formattedBudgetData = {
+    name: "new Investment",
+    amount: 90000,
+  };
 
   useEffect(() => {
     if (!user) return;
